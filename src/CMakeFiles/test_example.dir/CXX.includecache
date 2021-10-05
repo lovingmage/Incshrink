@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ypzhang0725/hermes/emp-sh2pc/test/example.cpp
+emp-sh2pc/emp-sh2pc.h
+/home/ypzhang0725/hermes/emp-sh2pc/test/emp-sh2pc/emp-sh2pc.h
+
+emp-sh2pc/emp-sh2pc.h
+emp-sh2pc/semihonest.h
+emp-sh2pc/emp-sh2pc/semihonest.h
+emp-sh2pc/sh_party.h
+emp-sh2pc/emp-sh2pc/sh_party.h
+emp-sh2pc/sh_gen.h
+emp-sh2pc/emp-sh2pc/sh_gen.h
+emp-sh2pc/sh_eva.h
+emp-sh2pc/emp-sh2pc/sh_eva.h
+
+emp-sh2pc/semihonest.h
+emp-sh2pc/sh_gen.h
+emp-sh2pc/emp-sh2pc/sh_gen.h
+emp-sh2pc/sh_eva.h
+emp-sh2pc/emp-sh2pc/sh_eva.h
+
+emp-sh2pc/sh_eva.h
+emp-sh2pc/sh_party.h
+emp-sh2pc/emp-sh2pc/sh_party.h
+
+emp-sh2pc/sh_gen.h
+emp-sh2pc/sh_party.h
+emp-sh2pc/emp-sh2pc/sh_party.h
+
+emp-sh2pc/sh_party.h
+emp-tool/emp-tool.h
+emp-sh2pc/emp-tool/emp-tool.h
+emp-ot/emp-ot.h
+emp-sh2pc/emp-ot/emp-ot.h
+
