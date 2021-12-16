@@ -27,8 +27,8 @@ class Data {public:
 
 
 /* 
-	Operator - oblivious sort cache (array of data)
-		Inputs: The (cache) array to sort *arr; Array length N; Bit order;
+	Operator - oblivious sort array (array of data)
+		Inputs: The array to be sorted *arr; Array length N; Bit order;
 		Outputs: sorted secure array *arr
 */
 void op_sort(Integer *arr, uint32_t N, Bit dir)
@@ -39,8 +39,27 @@ void op_sort(Integer *arr, uint32_t N, Bit dir)
 	/* Getting number of milliseconds as a double. */
     duration<double, std::milli> ms_double = t2 - t1;
 	std::cout << "Sorting cost:" << ms_double.count() << "ms" <<endl;
+	
 }
 
+/* 
+	Operator - oblivious sort cache (the array of mem blocks)
+		Inputs: The cache to be sorted *cache; cache size N; Cache blok size, rsz, Bit order;
+		Outputs: sorted cache *cache
+*/
+void op_csort(Integer *cache, uint32_t N, uint32_t rsz, Bit dir)
+{
+	Integer arr[N/rsz];
+	for (uint32_t i=0; i< N/rsz; i++)
+		arr[i] = cache[i*rsz];
+
+	auto t1 = high_resolution_clock::now();
+    cache_bitonic_sort(arr, cache, 0, rsz, N/rsz, dir);
+	auto t2 = high_resolution_clock::now();
+	/* Getting number of milliseconds as a double. */
+    duration<double, std::milli> ms_double = t2 - t1;
+	std::cout << "Sorting cost:" << ms_double.count() << "ms" <<endl;
+}
 
 /* 
 	Operator - oblivious sort cache (array of data)

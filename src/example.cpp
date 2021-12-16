@@ -1,6 +1,18 @@
 #include "emp-sh2pc/emp-sh2pc.h"
+#include <utils/row.h>
+#include <utils/io.h>
+#include <utils/oblisort.h>
+#include <utils/memory.h>
+#include <utils/operator.h>
 using namespace emp;
 using namespace std;
+using std::chrono::high_resolution_clock;
+using std::chrono::duration_cast;
+using std::chrono::duration;
+using std::chrono::milliseconds;
+
+string full_path = "/Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc/data/";
+
 
 void test_millionare(int party, int number) {
 	Integer a(32, number, ALICE);
@@ -42,14 +54,27 @@ void test_sort(int party) {
 int main(int argc, char** argv) {
 	int port, party;
 	parse_party_and_port(argv, &party, &port);
-	int num = 20;
-	if(argc > 3)
-		num = atoi(argv[3]);
 	NetIO * io = new NetIO(party==ALICE ? nullptr : "127.0.0.1", port);
-
 	setup_semi_honest(io, party);
-	test_millionare(party, num);
-//	test_sort(party);
+
+	std::vector<int32_t> attr = {1};
+	std::vector<int32_t> vect;
+	std::vector<int32_t> cacnt;
+	if (party == ALICE){
+		vect = fnfetch_data(full_path + "a.txt");
+		cacnt = fnfetch_data(full_path + "cacnt_0");
+	}
+	else{
+		vect = fnfetch_data(full_path + "b.txt");
+		cacnt = fnfetch_data(full_path + "cacnt_1");
+	}
+	
+	Data *data = op_recover(vect, attr, 0, party);
+	io->flush();
+
+	op_csort(data->data, data->public_size, 2, Bit(false));
+	io->flush();
+
 	cout << CircuitExecution::circ_exec->num_and()<<endl;
 	finalize_semi_honest();
 	delete io;

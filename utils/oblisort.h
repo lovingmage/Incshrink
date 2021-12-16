@@ -20,6 +20,20 @@ void arr_bitonic_merge(Integer *arr, uint32_t lo, uint32_t n, Bit dir);
     calls bitonic merge to make them in the same order */
 void arr_bitonic_sort(Integer *arr, uint32_t lo, uint32_t n, Bit dir);
 
+/*The parameter dir indicates the sorting direction, ASCENDING
+   or DESCENDING; if (arr[i] > arr[j]) agrees with the direction,
+   then arr[i] and arr[j] (sorting array) are interchanged. 
+   The cache will also be swaped accordingly*/
+void cache_cmp_swap(Integer *arr, Integer *cache, uint32_t i, uint32_t j, uint32_t rsz, Bit dir);
+
+/*This function call is same as the arr_bitonic_merge, but it will
+  passes *cache and block size rsz to the cache_cmp_swap function .*/
+void cache_bitonic_merge(Integer *arr, Integer *cache, uint32_t lo, uint32_t rsz, uint32_t n, Bit dir);
+
+/*This function call is same as the arr_bitonic_merge, but it will
+  passes *cache and block size rsz to the cache_bitonic_merge function .*/
+void cache_bitonic_sort(Integer *arr, Integer *cache, uint32_t lo, uint32_t rsz, uint32_t n, Bit dir);
+
 #include "oblisort.hpp"
 
 #endif
