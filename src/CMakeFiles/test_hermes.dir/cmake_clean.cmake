@@ -2,6 +2,7 @@ file(REMOVE_RECURSE
   "../bin/test_hermes"
   "../bin/test_hermes.pdb"
   "CMakeFiles/test_hermes.dir/hermes.cpp.o"
+  "CMakeFiles/test_hermes.dir/hermes.cpp.o.d"
 )
 
 # Per-language clean rules from dependency scanning.

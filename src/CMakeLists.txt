@@ -26,5 +26,7 @@ add_test_case_with_run(example)
 add_test_case_with_run(repeat)
 add_test_case_with_run(hermes)
 add_test_case_with_run(thor)
+add_test_case_with_run(sylvanas)
+
 
 

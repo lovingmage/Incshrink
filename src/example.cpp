@@ -4,14 +4,14 @@
 #include <utils/oblisort.h>
 #include <utils/memory.h>
 #include <utils/operator.h>
+#include <utils/params.h>
+
 using namespace emp;
 using namespace std;
 using std::chrono::high_resolution_clock;
 using std::chrono::duration_cast;
 using std::chrono::duration;
 using std::chrono::milliseconds;
-
-string full_path = "/Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc/data/";
 
 
 void test_millionare(int party, int number) {
@@ -72,7 +72,7 @@ int main(int argc, char** argv) {
 	Data *data = op_recover(vect, attr, 0, party);
 	io->flush();
 
-	op_csort(data->data, data->public_size, 2, Bit(false));
+	op_fsort(data->data, data->public_size, 12750, Bit(false));
 	io->flush();
 
 	cout << CircuitExecution::circ_exec->num_and()<<endl;

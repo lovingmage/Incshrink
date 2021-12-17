@@ -4,6 +4,7 @@
 #include <utils/oblisort.h>
 #include <utils/memory.h>
 #include <utils/operator.h>
+#include <utils/params.h>
 #include<thread>
 #include <chrono>
 
@@ -26,7 +27,6 @@ using std::chrono::milliseconds;
 
 
 // Configurations
-string full_path = "/home/ypzhang0725/hermes/emp-sh2pc/data/";
 int col_length0 = 64; 
 
 
@@ -121,7 +121,7 @@ int main(int argc, char** argv) {
 	Data *data2 = op_recover(vect2, attr, 0, party);
 	io->flush();
 
-	op_merg_join(data, data2, 0, 1);
+	//op_merg_join(data, data2, 0, 1);
 	//op_sort(data2->data, data2->public_size, Bit(false));
 	io->flush();
 #endif

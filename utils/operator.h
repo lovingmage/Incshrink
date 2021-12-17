@@ -2,6 +2,7 @@
 #define OPERATOR_H__
 
 #include <utils/operator.h>
+#include <utils/params.h>
 #include<thread>
 #include <chrono>
 
@@ -13,17 +14,7 @@ using std::chrono::duration;
 using std::chrono::milliseconds;
 
 
-string obj_path = "/home/ypzhang0725/hermes/emp-sh2pc/data/";
 
-// Define Data Structure
-class Data {public:
-    Integer * data;
-    uint32_t public_size;
-	uint32_t fpos;
-	uint32_t r_size;
-	std::vector<int32_t> attr;
-    Integer real_size; // Reserved for Dubug
-};
 
 
 /* 
@@ -33,13 +24,64 @@ class Data {public:
 */
 void op_sort(Integer *arr, uint32_t N, Bit dir)
 {
+#ifdef VERBOSE_T
 	auto t1 = high_resolution_clock::now();
+#endif
+
     arr_bitonic_sort(arr, 0, N, dir);
+
+#ifdef VERBOSE_T
 	auto t2 = high_resolution_clock::now();
 	/* Getting number of milliseconds as a double. */
     duration<double, std::milli> ms_double = t2 - t1;
 	std::cout << "Sorting cost:" << ms_double.count() << "ms" <<endl;
+#endif
 	
+}
+
+/* 
+	Operator - faster oblivious sort for growing array, this is achieved by define an upperbound 
+				for the max possible cached data (2*blk_sz). And blk >= max appended tuples between 2 updates.
+
+		Inputs: The partially sorted array *arr (sorted after position blk_sz);
+				Array length N; 
+				Threshold blk_sz; 
+				Bit order;
+		Outputs: sorted secure array *arr
+*/
+void op_fsort(Integer *arr, uint32_t N, uint32_t blk_sz, Bit dir)
+{
+#ifdef VERBOSE_T
+	auto t1 = high_resolution_clock::now();
+#endif	
+	
+	//if the total cache sz is smaller than upper bound 2*blk_sz
+	//sort the entire cache
+	if ( N < 2*blk_sz ){
+		arr_bitonic_sort(arr, 0, N, dir);
+	}
+	//if the total cache sz is in (2*blk_sz, 4*blk_sz)
+	//sort the first block (with size blk_sz) with !dir
+	//merge the first two blocks (the 2nd blk is assumed to be sorted)
+	else if ( N < 4*blk_sz ){
+		arr_bitonic_sort(arr, 0, blk_sz, !dir);
+		arr_bitonic_merge(arr, 0, 2*blk_sz, dir);
+	}
+	else{
+		// currently treated same as ( N < 4*blk_sz )
+		// TODO: 	(i)  	merge the first 2 blks, 
+		//			(ii) 	flip the array side 
+		//			(iii) 	merge the first 4 blks
+		arr_bitonic_sort(arr, 0, blk_sz, !dir);
+		arr_bitonic_merge(arr, 0, 2*blk_sz, dir);
+	}
+
+#ifdef VERBOSE_T
+	auto t2 = high_resolution_clock::now();
+	/* Getting number of milliseconds as a double. */
+    duration<double, std::milli> ms_double = t2 - t1;
+	std::cout << "Sorting cost:" << ms_double.count() << "ms" <<endl;
+#endif
 }
 
 /* 
@@ -53,16 +95,22 @@ void op_csort(Integer *cache, uint32_t N, uint32_t rsz, Bit dir)
 	for (uint32_t i=0; i< N/rsz; i++)
 		arr[i] = cache[i*rsz];
 
+#ifdef VERBOSE_T
 	auto t1 = high_resolution_clock::now();
+#endif	
+
     cache_bitonic_sort(arr, cache, 0, rsz, N/rsz, dir);
+
+#ifdef VERBOSE_T
 	auto t2 = high_resolution_clock::now();
 	/* Getting number of milliseconds as a double. */
     duration<double, std::milli> ms_double = t2 - t1;
 	std::cout << "Sorting cost:" << ms_double.count() << "ms" <<endl;
+#endif
 }
 
 /* 
-	Operator - oblivious sort cache (array of data)
+	Operator - oblivious array sort
 		Inputs: The (cache) array to sort *arr; Array length N; Bit order;
 		Outputs: sorted secure array *arr
 */
@@ -74,7 +122,7 @@ void op_truncation_sort(Integer *arr, uint32_t N, Bit dir, uint32_t thread_num =
         arr_bitonic_sort(arr, lo, N, dir);
     };
 
-	for (uint32_t i = 0; i < thread_num-1; i++){
+	for (uint32_t i = 0; i < thread_num; i++){
 		uint32_t shift = i*subarr_length;
 		Integer *p = arr+shift;
 		std::thread tsk(f, p, 0, subarr_length, Bit(false));
@@ -83,14 +131,16 @@ void op_truncation_sort(Integer *arr, uint32_t N, Bit dir, uint32_t thread_num =
 	
 }
 
-/* Operator - recover cardinality count
+/* Operator - recover single secret shared value
 */
 Integer op_recover(std::vector<int32_t> shares){
 	Integer res(32, 0, PUBLIC);
 	Integer a(32, shares[0], ALICE);
 	Integer b(32, shares[0], BOB);
 	res = a + b;
-	std::cout << "Previous cadinality count is"<< res.reveal<int>(PUBLIC)<<std::endl;
+#ifdef DEBUG
+	std::cout << "The recovered value is "<< res.reveal<int>(PUBLIC)<<std::endl;
+#endif
 	return res;
 }
 /*
@@ -103,7 +153,10 @@ Data* op_recover(std::vector<int32_t> shares, std::vector<int32_t> attr, int32_t
 	Integer * res = new Integer[shares.size()];
 	for (uint32_t i=0; i<attr.size(); ++i)
 		row_size += attr[i];
+
+#ifdef DEBUG
 	cout << "Fetched " << shares.size()/row_size << " rows." << endl;
+#endif
 
 	// Step 1.1 Specify Alice's input
 	Integer * share0 = new Integer[shares.size()];
@@ -116,15 +169,19 @@ Data* op_recover(std::vector<int32_t> shares, std::vector<int32_t> attr, int32_t
 		share1[i] = Integer(32, shares[i], BOB);
 
 	// Step 1.3 Recover values
+#ifdef VERBOSE_T
 	auto t1 = high_resolution_clock::now();
+#endif	
 	for (uint32_t i=0; i < shares.size(); i++ )
 		res[i] = share0[i] + share1[i];
-		//res[i] = share0[i] + share1[i];
+
+#ifdef VERBOSE_T
 	auto t2 = high_resolution_clock::now();
 
     /* Getting number of milliseconds as a double. */
     duration<double, std::milli> ms_double = t2 - t1;
 	std::cout << "Recover cost:" << ms_double.count() << "ms" <<endl;
+#endif
 
 	Data * d = new Data;
 	d->data = res;
@@ -139,6 +196,26 @@ Data* op_recover(std::vector<int32_t> shares, std::vector<int32_t> attr, int32_t
 	//std::cout << ( sizeof(Integer)* ( d->public_size + 1 ) * (TAB1_SZ+TAB2_SZ) + 2 * sizeof(uint32_t) + sizeof(d->attr) ) <<std::endl;
 
 	return d;
+}
+
+void append_cache(Integer *data, uint32_t sz, int party){
+	for (uint32_t i=0; i < sz; i++){
+		int ss0 = data[i].reveal<int>(PUBLIC) - RANDOM_SS;
+		int ss1 = RANDOM_SS;
+			std::ofstream myfile;
+			if (party == ALICE){
+				std::string fpath = obj_path + "cache_0";
+				myfile.open (fpath, std::ios_base::app);
+				myfile << ss0  << "\n";
+				myfile.close();
+			}
+			else{
+				std::string fpath = obj_path + "cache_1";	
+				myfile.open (fpath, std::ios_base::app);
+				myfile << ss1  << "\n";
+				myfile.close();
+			}
+	}
 }
 
 /* oblivious filter operator */
@@ -158,36 +235,18 @@ void op_filter_gt(Data *in, Integer prevcnt, uint32_t predicate, int party){
 			res[i + j] = If(cond, in->data[i + j], piv);
 			cacnt = If(cond, cacnt + inc, cacnt);
 	}
-
+#ifdef DEBUG
 	for (uint32_t i=0; i < in->public_size; i++)
 		std::cout<<res[i].reveal<int>(BOB)<<std::endl;
 	std::cout<<"True cardinality is:"<<cacnt.reveal<int>(BOB)<<std::endl;
-
+#endif
 	// write to cache
 	// this is append only write
-	for (uint32_t i=0; i < in->public_size; i++){
-		int ss0 = res[i].reveal<int>(PUBLIC) + 10;
-		int ss1 = -10;
-			std::ofstream myfile;
-			if (party == ALICE){
-				std::string fpath = obj_path + "cache_0";
-				myfile.open (fpath, std::ios_base::app);
-				// hardcode - change to secret share
-				myfile << ss0  << "\n";
-				myfile.close();
-			}
-			else{
-				std::string fpath = obj_path + "cache_1";	
-				myfile.open (fpath, std::ios_base::app);
-				myfile << ss1  << "\n";
-				myfile.close();
-			}
-	}
+	append_cache(res, in->public_size, party);
 
 	// write cardinality count to file
 	// this is overwrite mode
 	std::ofstream f_cnt;
-	// hardcode randomness (test purpose only)
 	int out_cnt_0 = cacnt.reveal<int>(PUBLIC) + 10 + prevcnt.reveal<int>(PUBLIC);
 	int out_cnt_1 = -10;
 	if (party == ALICE){

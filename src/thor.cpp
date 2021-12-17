@@ -4,6 +4,8 @@
 #include <utils/oblisort.h>
 #include <utils/memory.h>
 #include <utils/operator.h>
+#include <utils/params.h>
+
 #include<thread>
 #include <chrono>
 
@@ -14,109 +16,53 @@ using std::chrono::duration_cast;
 using std::chrono::duration;
 using std::chrono::milliseconds;
 
+
 void synchron(Data *in, Integer prevcnt, int party){
-	// use joint noise adding
+	// use joint noise adding, this fixed noise is used for debug only
 	int noise = -2;
 	Integer noisy_cnt(32, 0, PUBLIC);
 	Integer z(32, noise);
+	Integer zero(32, 0);
 	noisy_cnt = prevcnt + z;
 	
 	//compute fetch count
 	uint32_t pos = in->fpos;
 	uint32_t move = in->r_size;
+
+	//truncate the fetch size to non-negative max(noisy_cnt, 0)
+	Bit cond = (noisy_cnt > zero);
+	noisy_cnt = If(cond, noisy_cnt, zero);
 	uint32_t fetch_sz = noisy_cnt.reveal<int>(PUBLIC) * move;
-	std::cout<< "The fetch count for this round is"<< fetch_sz<<std::endl;
+	//std::cout<< "The fetch count for this round is"<< fetch_sz<<std::endl;
 
 	op_sort(in->data, in->public_size, Bit(false));
+	
+#ifdef DEBUG2
 	std::cout<< "Cache size is" << in->public_size << std::endl;
-	//for (uint32_t i=pos; i < in->public_size; i += move){
-	//	std::cout<< in->data[i].reveal<int>(PUBLIC)<<std::endl;
-	//}
-
-	// write to view
-	// this is append only write
-	for (uint32_t i=0; i < fetch_sz; i++){
-		int ss0 = in->data[i].reveal<int>(PUBLIC) + 10;
-		int ss1 = -10;
-		std::ofstream myfile;
-		if (party == ALICE){
-				std::string fpath = obj_path + "view_0";
-				myfile.open (fpath, std::ios_base::app);
-				// hardcode - change to secret share
-				myfile << ss0  << "\n";
-				myfile.close();
-		}
-		else{
-				std::string fpath = obj_path + "view_1";	
-				myfile.open (fpath, std::ios_base::app);
-				myfile << ss1  << "\n";
-				myfile.close();
-		}
+	for (uint32_t i=pos; i < in->public_size; i += move){
+		std::cout<< in->data[i].reveal<int>(PUBLIC)<<std::endl;
 	}
+#endif
+
+	/* Cache I/O operations*/
+	// write to view
+	Integer * out_arr = new Integer[fetch_sz];
+	init_array(out_arr, fetch_sz, zero);
+	if (fetch_sz < in->public_size)
+		std::memcpy(out_arr, in->data, fetch_sz * sizeof(Integer));
+	else
+		std::memcpy(out_arr, in->data, in->public_size * sizeof(Integer));
+
+	update_view(out_arr, fetch_sz, party);
 
 	// update cache
-	// this is overwride write
-	std::ofstream cachefile;
-	int ss00 = in->data[fetch_sz].reveal<int>(PUBLIC) + 10;
-	int ss10 = -10;
-	if (party == ALICE){
-				std::string fpath = obj_path + "cache_0";
-				cachefile.open (fpath, std::ios::trunc);
-				// hardcode - change to secret share
-				cachefile << ss00  << "\n";
-				cachefile.close();
-		}
-	else{
-				std::string fpath = obj_path + "cache_1";	
-				cachefile.open (fpath, std::ios::trunc);
-				cachefile << ss10  << "\n";
-				cachefile.close();
-	}
+	overwrite_cache(in, fetch_sz, party);
 
-	for (uint32_t i=fetch_sz+1; i < in->public_size; i++){
-		std::cout << "Round is "<< i <<endl;
-		int ss0 = in->data[i].reveal<int>(PUBLIC) + 10;
-		int ss1 = -10;
-		std::ofstream myfile;
-		if (party == ALICE){
-				std::string fpath = obj_path + "cache_0";
-				myfile.open (fpath, std::ios_base::app);
-				// hardcode - change to secret share
-				myfile << ss0  << "\n";
-				myfile.close();
-		}
-		else{
-				std::string fpath = obj_path + "cache_1";	
-				myfile.open (fpath, std::ios_base::app);
-				myfile << ss1  << "\n";
-				myfile.close();
-		}
-	}
+	// reset cardinality count
+	reset_cacnt(party);
 
-	// write cardinality count to file
-	// this is overwrite mode
-	std::ofstream f_cnt;
-	int out_cnt_0 = 10 ;
-	int out_cnt_1 = -10;
-	if (party == ALICE){
-		std::string fpath = obj_path + "cacnt_0";
-		f_cnt.open (fpath, std::ios::trunc);
-		// hardcode - change to secret share
-		f_cnt << out_cnt_0  << "\n";
-		f_cnt.close();
-	}
-	else{
-		std::string fpath = obj_path + "cacnt_1";	
-		f_cnt.open (fpath, std::ios::trunc);
-		f_cnt << out_cnt_1  << "\n";
-		f_cnt.close();
-	}
-
-		
 }
 
-// Configurations
-string full_path = "/home/ypzhang0725/hermes/emp-sh2pc/data/";
 
 int main(int argc, char** argv) {
 	int port, party;
@@ -143,6 +89,7 @@ int main(int argc, char** argv) {
 	io->flush();
 
 	synchron(data, prev_cnt, party);
+	io->flush();
 
 	//cout << CircuitExecution::circ_exec->num_and()<<endl;
 	finalize_semi_honest();

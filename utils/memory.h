@@ -11,7 +11,10 @@ void memconcat(Integer * res, Integer * str0, Integer * str1, uint32_t sz0, uint
 	std::memcpy(res+(sz0), str1, (sz1) * sizeof(Integer));
 }
 
-
+void init_array(Integer *arr, uint32_t sz, Integer val){
+	for (uint32_t i=0; i< sz; i++)
+		arr[i] = val;
+}
 
 //test of concantenation
 void test_concat(){
