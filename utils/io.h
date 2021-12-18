@@ -125,8 +125,8 @@ void reset_cacnt(int party){
 
 void update_cacnt(int cnt, int precnt, int party){
 	std::ofstream f_cnt;
-	int out_cnt_0 = cnt + RANDOM_SS + precnt;
-	int out_cnt_1 = -RANDOM_SS;
+	int out_cnt_0 = cnt - RANDOM_SS + precnt;
+	int out_cnt_1 = RANDOM_SS;
 	if (party == ALICE){
 		std::string fpath = obj_path + "cacnt_0";
 		f_cnt.open (fpath, std::ios::trunc);

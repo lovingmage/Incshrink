@@ -3,8 +3,11 @@
 
 #include <utils/operator.h>
 #include <utils/params.h>
+#include <utils/io.h>
 #include<thread>
 #include <chrono>
+
+#define RUNTIME_MAIN 0
 
 using namespace emp;
 using namespace std;
@@ -318,10 +321,10 @@ void op_join(Data *left, Data *right, uint32_t key_pos, uint32_t contr){
 /*
 	Operator: compute joint table of two databases
 	Input: Two provisioned data structure Data* left and Data *right
-	Outputs: Join table for left x right
+	Outputs: Join table for left x right; join size
 */
 
-void op_arr_merge_join(Integer *res, Data *left, Data *right){
+uint32_t op_arr_merge_join(Integer **res, Integer prevcnt, Data *left, Data *right, int party){
 	Integer zero(32, 0, PUBLIC);
 	Integer one(32, 1, PUBLIC); 
 	op_sort(left->data, left->public_size, Bit(true));
@@ -335,6 +338,11 @@ void op_arr_merge_join(Integer *res, Data *left, Data *right){
 	uint32_t j=0;
 	uint32_t k=0;
 	for (uint32_t i=0; i < left->public_size; i++){	
+
+		Bit cond_p = (left->data[i] <= zero);
+		if(cond_p.reveal<bool>()){
+			continue;
+		}
 
 		Bit cond_eq = (left->data[i] == right->data[j]);
 		Bit cond_lt = (left->data[i] < right->data[j]);
@@ -368,10 +376,27 @@ void op_arr_merge_join(Integer *res, Data *left, Data *right){
     duration<double, std::milli> ms_double = t2 - t1;
 	std::cout << "Merge join cost:" << ms_double.count() << "ms" <<endl;
 #endif
+
+	*res = (Integer*)malloc(sizeof(Integer)*join_size);
+	std::memcpy(*res, join, join_size * sizeof(Integer));
+
+#ifdef RUNTIME_MAIN
+	// write to cache
+	// this is append only write
+	append_cache(*res, join_size, party);
+
+	// write cardinality count to file
+	// this is overwrite mode
+	update_cacnt(k, prevcnt.reveal<int>(PUBLIC), party);
+#endif
+
+#ifdef DEBUG
 	for (uint32_t i=0; i< join_size; i++)
 		std::cout<<join[i].reveal<int>()<<std::endl;
-
-	return;
+#endif
+	
+	return join_size;
 }
+
 
 #endif
