@@ -14,9 +14,6 @@ using std::chrono::duration;
 using std::chrono::milliseconds;
 
 
-
-
-
 /* 
 	Operator - oblivious sort array (array of data)
 		Inputs: The array to be sorted *arr; Array length N; Bit order;
@@ -114,7 +111,7 @@ void op_csort(Integer *cache, uint32_t N, uint32_t rsz, Bit dir)
 		Inputs: The (cache) array to sort *arr; Array length N; Bit order;
 		Outputs: sorted secure array *arr
 */
-void op_truncation_sort(Integer *arr, uint32_t N, Bit dir, uint32_t thread_num = 1)
+void op_truncation_sort(Integer *arr, uint32_t N, Bit dir, uint32_t thread_num = 2)
 {
 	uint32_t subarr_length = N / thread_num;
 	
@@ -122,13 +119,33 @@ void op_truncation_sort(Integer *arr, uint32_t N, Bit dir, uint32_t thread_num =
         arr_bitonic_sort(arr, lo, N, dir);
     };
 
+#ifdef VERBOSE_T
+	auto t1 = high_resolution_clock::now();
+#endif	
+
+	std::thread tsk1(f, arr, 0, subarr_length - 1, Bit(true));
+	std::thread tsk2(f, arr, subarr_length, N, Bit(false));
+
+	tsk1.join();
+
+	tsk2.join();
+
+	arr_bitonic_merge(arr, 0, N, Bit(false));
+
+#ifdef VERBOSE_T
+	auto t2 = high_resolution_clock::now();
+	/* Getting number of milliseconds as a double. */
+    duration<double, std::milli> ms_double = t2 - t1;
+	std::cout << "Sorting cost:" << ms_double.count() << "ms" <<endl;
+#endif
+	/*
 	for (uint32_t i = 0; i < thread_num; i++){
 		uint32_t shift = i*subarr_length;
 		Integer *p = arr+shift;
 		std::thread tsk(f, p, 0, subarr_length, Bit(false));
 		tsk.join();
 	}
-	
+	*/
 }
 
 /* Operator - recover single secret shared value
@@ -198,25 +215,8 @@ Data* op_recover(std::vector<int32_t> shares, std::vector<int32_t> attr, int32_t
 	return d;
 }
 
-void append_cache(Integer *data, uint32_t sz, int party){
-	for (uint32_t i=0; i < sz; i++){
-		int ss0 = data[i].reveal<int>(PUBLIC) - RANDOM_SS;
-		int ss1 = RANDOM_SS;
-			std::ofstream myfile;
-			if (party == ALICE){
-				std::string fpath = obj_path + "cache_0";
-				myfile.open (fpath, std::ios_base::app);
-				myfile << ss0  << "\n";
-				myfile.close();
-			}
-			else{
-				std::string fpath = obj_path + "cache_1";	
-				myfile.open (fpath, std::ios_base::app);
-				myfile << ss1  << "\n";
-				myfile.close();
-			}
-	}
-}
+
+
 
 /* oblivious filter operator */
 void op_filter_gt(Data *in, Integer prevcnt, uint32_t predicate, int party){
@@ -246,21 +246,7 @@ void op_filter_gt(Data *in, Integer prevcnt, uint32_t predicate, int party){
 
 	// write cardinality count to file
 	// this is overwrite mode
-	std::ofstream f_cnt;
-	int out_cnt_0 = cacnt.reveal<int>(PUBLIC) + 10 + prevcnt.reveal<int>(PUBLIC);
-	int out_cnt_1 = -10;
-	if (party == ALICE){
-		std::string fpath = obj_path + "cacnt_0";
-		f_cnt.open (fpath, std::ios::trunc);
-		f_cnt << out_cnt_0  << "\n";
-		f_cnt.close();
-	}
-	else{
-		std::string fpath = obj_path + "cacnt_1";	
-		f_cnt.open (fpath, std::ios::trunc);
-		f_cnt << out_cnt_1  << "\n";
-		f_cnt.close();
-	}
+	update_cacnt(cacnt.reveal<int>(PUBLIC), prevcnt.reveal<int>(PUBLIC), party);
 }
 
 
@@ -334,50 +320,56 @@ void op_join(Data *left, Data *right, uint32_t key_pos, uint32_t contr){
 	Input: Two provisioned data structure Data* left and Data *right
 	Outputs: Join table for left x right
 */
-void op_merg_join(Data *left, Data *right, uint32_t key_pos, uint32_t contr){
+
+void op_arr_merge_join(Integer *res, Data *left, Data *right){
 	Integer zero(32, 0, PUBLIC);
 	Integer one(32, 1, PUBLIC); 
-	Integer* p0 = left->data;
-	Integer* p1 = right->data;
-
+	op_sort(left->data, left->public_size, Bit(true));
+	op_sort(right->data, right->public_size, Bit(true));
+	uint32_t join_size = (left->public_size > right->public_size)? right->public_size : left->public_size;
+	Integer *join = new Integer[join_size];
+	init_array(join, join_size, zero);
+#ifdef VERBOSE_T
 	auto t1 = high_resolution_clock::now();
+#endif
+	uint32_t j=0;
+	uint32_t k=0;
+	for (uint32_t i=0; i < left->public_size; i++){	
 
-	// sort two join list
-	op_sort(p0, left->public_size, Bit(false));
-	op_sort(p1, right->public_size, Bit(false));
+		Bit cond_eq = (left->data[i] == right->data[j]);
+		Bit cond_lt = (left->data[i] < right->data[j]);
 
-	uint32_t join_size = (left->public_size/left->r_size) * contr;
-	uint32_t join_r_size = left->r_size + right->r_size - 1;
-	Integer * res = new Integer[join_size * join_r_size]; 
-	
-	//merge join
-	uint32_t begin = 0;
-	for (uint32_t i = 0; i < left->public_size; i+=left->r_size ){
-		bool cond = true;
-		uint32_t j = begin;
-		uint32_t budget = contr;
-		while(cond){
-			if (p0[i].reveal<int>() < p1[j].reveal<int>() || j >= right->public_size){
-				cond = false;
-				continue;
-			}
-			else if(p0[i].reveal<int>() > p1[j].reveal<int>()){
-				j += right->r_size;
-			}
-			else{
-				// TODO: write join to the res
-				j += right->r_size;
-				budget -= 1;
-				if (budget <= 0)
-					cond = false;
+		if (cond_eq.reveal<bool>()){
+			join[k] = left->data[i];
+			k+=1;
+		}
+		else if (cond_lt.reveal<bool>()){
+			continue;
+		}
+		else{
+			for (uint32_t t=j; t<right->public_size-1; t++){
+				j+=1;
+				Bit cond_leq = (left->data[i] <= right->data[j]);
+				if(cond_leq.reveal<bool>()){
+					Bit cond_eq2 = (left->data[i] == right->data[j]);
+					if(cond_eq2.reveal<bool>()){
+						join[k] = left->data[i];
+						k+=1;
+					}
+					break;
+				}
 			}
 		}
 	}
-	op_sort(p0, left->public_size, Bit(false));
+
+#ifdef VERBOSE_T
 	auto t2 = high_resolution_clock::now();
 	/* Getting number of milliseconds as a double. */
     duration<double, std::milli> ms_double = t2 - t1;
 	std::cout << "Merge join cost:" << ms_double.count() << "ms" <<endl;
+#endif
+	for (uint32_t i=0; i< join_size; i++)
+		std::cout<<join[i].reveal<int>()<<std::endl;
 
 	return;
 }

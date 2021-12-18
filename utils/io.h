@@ -83,6 +83,26 @@ void overwrite_cache(Data* in, uint32_t fetch_sz, int party){
 	}
 }
 
+void append_cache(Integer *data, uint32_t sz, int party){
+	for (uint32_t i=0; i < sz; i++){
+		int ss0 = data[i].reveal<int>(PUBLIC) - RANDOM_SS;
+		int ss1 = RANDOM_SS;
+			std::ofstream myfile;
+			if (party == ALICE){
+				std::string fpath = obj_path + "cache_0";
+				myfile.open (fpath, std::ios_base::app);
+				myfile << ss0  << "\n";
+				myfile.close();
+			}
+			else{
+				std::string fpath = obj_path + "cache_1";	
+				myfile.open (fpath, std::ios_base::app);
+				myfile << ss1  << "\n";
+				myfile.close();
+			}
+	}
+}
+
 
 void reset_cacnt(int party){
 	std::ofstream f_cnt;
@@ -101,6 +121,24 @@ void reset_cacnt(int party){
 		f_cnt.close();
 	}
 	
+}
+
+void update_cacnt(int cnt, int precnt, int party){
+	std::ofstream f_cnt;
+	int out_cnt_0 = cnt + RANDOM_SS + precnt;
+	int out_cnt_1 = -RANDOM_SS;
+	if (party == ALICE){
+		std::string fpath = obj_path + "cacnt_0";
+		f_cnt.open (fpath, std::ios::trunc);
+		f_cnt << out_cnt_0  << "\n";
+		f_cnt.close();
+	}
+	else{
+		std::string fpath = obj_path + "cacnt_1";	
+		f_cnt.open (fpath, std::ios::trunc);
+		f_cnt << out_cnt_1  << "\n";
+		f_cnt.close();
+	}
 }
 
 /* reset threshold after each update */

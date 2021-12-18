@@ -6,6 +6,7 @@
 #include <utils/operator.h>
 #include <utils/params.h>
 
+
 using namespace emp;
 using namespace std;
 using std::chrono::high_resolution_clock;
@@ -59,20 +60,28 @@ int main(int argc, char** argv) {
 
 	std::vector<int32_t> attr = {1};
 	std::vector<int32_t> vect;
-	std::vector<int32_t> cacnt;
+	std::vector<int32_t> vleft;
+	std::vector<int32_t> vright;
 	if (party == ALICE){
 		vect = fnfetch_data(full_path + "a.txt");
-		cacnt = fnfetch_data(full_path + "cacnt_0");
+		vleft = fnfetch_data(full_path + "/sample_db/join/a.txt");
+		vright = fnfetch_data(full_path + "/sample_db/join/c.txt");
 	}
 	else{
 		vect = fnfetch_data(full_path + "b.txt");
-		cacnt = fnfetch_data(full_path + "cacnt_1");
+		vleft = fnfetch_data(full_path + "/sample_db/join/b.txt");
+		vright = fnfetch_data(full_path + "/sample_db/join/d.txt");
 	}
 	
-	Data *data = op_recover(vect, attr, 0, party);
+	Data *left = op_recover(vleft, attr, 0, party);
 	io->flush();
 
-	op_fsort(data->data, data->public_size, 12750, Bit(false));
+	Data *right = op_recover(vright, attr, 0, party);
+	io->flush();
+
+	Integer res[10];
+	//op_sort(data->data, data->public_size, Bit(false));
+	op_arr_merge_join(res, left, right);
 	io->flush();
 
 	cout << CircuitExecution::circ_exec->num_and()<<endl;
