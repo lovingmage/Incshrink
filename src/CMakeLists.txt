@@ -28,6 +28,6 @@ add_test_case_with_run(hermes)
 add_test_case_with_run(thor)
 add_test_case_with_run(sylvanas)
 add_test_case_with_run(anduin)
-
+add_test_case_with_run(gen_noise)
 
 
