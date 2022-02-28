@@ -23,34 +23,6 @@ void test_millionare(int party, int number) {
 	cout << "ALICE larger?\t"<< res.reveal<bool>()<<endl;
 }
 
-void test_sort(int party) {
-	int size = 100;
-	Integer *A = new Integer[size];
-	Integer *B = new Integer[size];
-	Integer *res = new Integer[size];
-
-// First specify Alice's input
-	for(int i = 0; i < size; ++i)
-		A[i] = Integer(32, rand()%102400, ALICE);
-
-
-// Now specify Bob's input
-	for(int i = 0; i < size; ++i)
-		B[i] = Integer(32, rand()%102400, BOB);
-
-//Now compute
-	for(int i = 0; i < size; ++i)
-		res[i] = A[i] ^ B[i];
-	
-
-	sort(res, size);
-	for(int i = 0; i < 100; ++i)
-		cout << res[i].reveal<int32_t>()<<endl;
-
-	delete[] A;
-	delete[] B;
-	delete[] res;
-}
 
 int main(int argc, char** argv) {
 	int port, party;
@@ -79,9 +51,11 @@ int main(int argc, char** argv) {
 	Data *right = op_recover(vright, attr, 0, party);
 	io->flush();
 
-	Integer res[10];
+	Integer *res = nullptr;
+	uint32_t jsz = 0;
+	Integer zero(32, 0, PUBLIC);
 	//op_sort(data->data, data->public_size, Bit(false));
-	op_arr_merge_join(res, left, right);
+	jsz = op_arr_merge_join(&res, zero, left, right, party);
 	io->flush();
 
 	cout << CircuitExecution::circ_exec->num_and()<<endl;

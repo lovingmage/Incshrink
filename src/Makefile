@@ -86,15 +86,15 @@ list_install_components:
 list_install_components/fast: list_install_components
 .PHONY : list_install_components/fast
 
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/usr/local/Cellar/cmake/3.21.4/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : edit_cache
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/local/Cellar/cmake/3.21.4/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
 
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-.PHONY : edit_cache/fast
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+.PHONY : rebuild_cache/fast
 
 # Special rule for the target install/strip
 install/strip: preinstall
@@ -118,16 +118,6 @@ test:
 test/fast: test
 .PHONY : test/fast
 
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/local/Cellar/cmake/3.21.4/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-.PHONY : rebuild_cache/fast
-
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
@@ -139,6 +129,16 @@ install/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
 	/usr/local/Cellar/cmake/3.21.4/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
+
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
+	/usr/local/Cellar/cmake/3.21.4/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+.PHONY : edit_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -170,6 +170,34 @@ preinstall/fast:
 depend:
 	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
+
+# Convenience name for target.
+test/CMakeFiles/test_anduin.dir/rule:
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test_anduin.dir/rule
+.PHONY : test/CMakeFiles/test_anduin.dir/rule
+
+# Convenience name for target.
+test_anduin: test/CMakeFiles/test_anduin.dir/rule
+.PHONY : test_anduin
+
+# fast build rule for target.
+test_anduin/fast:
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_anduin.dir/build.make test/CMakeFiles/test_anduin.dir/build
+.PHONY : test_anduin/fast
+
+# Convenience name for target.
+test/CMakeFiles/test_gen_noise.dir/rule:
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test_gen_noise.dir/rule
+.PHONY : test/CMakeFiles/test_gen_noise.dir/rule
+
+# Convenience name for target.
+test_gen_noise: test/CMakeFiles/test_gen_noise.dir/rule
+.PHONY : test_gen_noise
+
+# fast build rule for target.
+test_gen_noise/fast:
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_gen_noise.dir/build.make test/CMakeFiles/test_gen_noise.dir/build
+.PHONY : test_gen_noise/fast
 
 # Convenience name for target.
 test/CMakeFiles/test_example.dir/rule:
@@ -214,34 +242,6 @@ test_hermes/fast:
 .PHONY : test_hermes/fast
 
 # Convenience name for target.
-test/CMakeFiles/test_thor.dir/rule:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test_thor.dir/rule
-.PHONY : test/CMakeFiles/test_thor.dir/rule
-
-# Convenience name for target.
-test_thor: test/CMakeFiles/test_thor.dir/rule
-.PHONY : test_thor
-
-# fast build rule for target.
-test_thor/fast:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_thor.dir/build.make test/CMakeFiles/test_thor.dir/build
-.PHONY : test_thor/fast
-
-# Convenience name for target.
-test/CMakeFiles/test_circuit_file.dir/rule:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test_circuit_file.dir/rule
-.PHONY : test/CMakeFiles/test_circuit_file.dir/rule
-
-# Convenience name for target.
-test_circuit_file: test/CMakeFiles/test_circuit_file.dir/rule
-.PHONY : test_circuit_file
-
-# fast build rule for target.
-test_circuit_file/fast:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_circuit_file.dir/build.make test/CMakeFiles/test_circuit_file.dir/build
-.PHONY : test_circuit_file/fast
-
-# Convenience name for target.
 test/CMakeFiles/test_repeat.dir/rule:
 	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test_repeat.dir/rule
 .PHONY : test/CMakeFiles/test_repeat.dir/rule
@@ -282,6 +282,58 @@ test_bit: test/CMakeFiles/test_bit.dir/rule
 test_bit/fast:
 	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_bit.dir/build.make test/CMakeFiles/test_bit.dir/build
 .PHONY : test_bit/fast
+
+# Convenience name for target.
+test/CMakeFiles/test_circuit_file.dir/rule:
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test_circuit_file.dir/rule
+.PHONY : test/CMakeFiles/test_circuit_file.dir/rule
+
+# Convenience name for target.
+test_circuit_file: test/CMakeFiles/test_circuit_file.dir/rule
+.PHONY : test_circuit_file
+
+# fast build rule for target.
+test_circuit_file/fast:
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_circuit_file.dir/build.make test/CMakeFiles/test_circuit_file.dir/build
+.PHONY : test_circuit_file/fast
+
+# Convenience name for target.
+test/CMakeFiles/test_thor.dir/rule:
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test_thor.dir/rule
+.PHONY : test/CMakeFiles/test_thor.dir/rule
+
+# Convenience name for target.
+test_thor: test/CMakeFiles/test_thor.dir/rule
+.PHONY : test_thor
+
+# fast build rule for target.
+test_thor/fast:
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_thor.dir/build.make test/CMakeFiles/test_thor.dir/build
+.PHONY : test_thor/fast
+
+anduin.o: anduin.cpp.o
+.PHONY : anduin.o
+
+# target to build an object file
+anduin.cpp.o:
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_anduin.dir/build.make test/CMakeFiles/test_anduin.dir/anduin.cpp.o
+.PHONY : anduin.cpp.o
+
+anduin.i: anduin.cpp.i
+.PHONY : anduin.i
+
+# target to preprocess a source file
+anduin.cpp.i:
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_anduin.dir/build.make test/CMakeFiles/test_anduin.dir/anduin.cpp.i
+.PHONY : anduin.cpp.i
+
+anduin.s: anduin.cpp.s
+.PHONY : anduin.s
+
+# target to generate assembly for a file
+anduin.cpp.s:
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_anduin.dir/build.make test/CMakeFiles/test_anduin.dir/anduin.cpp.s
+.PHONY : anduin.cpp.s
 
 bit.o: bit.cpp.o
 .PHONY : bit.o
@@ -354,6 +406,30 @@ example.s: example.cpp.s
 example.cpp.s:
 	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_example.dir/build.make test/CMakeFiles/test_example.dir/example.cpp.s
 .PHONY : example.cpp.s
+
+gen_noise.o: gen_noise.cpp.o
+.PHONY : gen_noise.o
+
+# target to build an object file
+gen_noise.cpp.o:
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_gen_noise.dir/build.make test/CMakeFiles/test_gen_noise.dir/gen_noise.cpp.o
+.PHONY : gen_noise.cpp.o
+
+gen_noise.i: gen_noise.cpp.i
+.PHONY : gen_noise.i
+
+# target to preprocess a source file
+gen_noise.cpp.i:
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_gen_noise.dir/build.make test/CMakeFiles/test_gen_noise.dir/gen_noise.cpp.i
+.PHONY : gen_noise.cpp.i
+
+gen_noise.s: gen_noise.cpp.s
+.PHONY : gen_noise.s
+
+# target to generate assembly for a file
+gen_noise.cpp.s:
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_gen_noise.dir/build.make test/CMakeFiles/test_gen_noise.dir/gen_noise.cpp.s
+.PHONY : gen_noise.cpp.s
 
 hermes.o: hermes.cpp.o
 .PHONY : hermes.o
@@ -488,14 +564,19 @@ help:
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... test"
+	@echo "... test_anduin"
 	@echo "... test_bit"
 	@echo "... test_circuit_file"
 	@echo "... test_example"
+	@echo "... test_gen_noise"
 	@echo "... test_hermes"
 	@echo "... test_int"
 	@echo "... test_repeat"
 	@echo "... test_sylvanas"
 	@echo "... test_thor"
+	@echo "... anduin.o"
+	@echo "... anduin.i"
+	@echo "... anduin.s"
 	@echo "... bit.o"
 	@echo "... bit.i"
 	@echo "... bit.s"
@@ -505,6 +586,9 @@ help:
 	@echo "... example.o"
 	@echo "... example.i"
 	@echo "... example.s"
+	@echo "... gen_noise.o"
+	@echo "... gen_noise.i"
+	@echo "... gen_noise.s"
 	@echo "... hermes.o"
 	@echo "... hermes.i"
 	@echo "... hermes.s"
