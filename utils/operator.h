@@ -8,6 +8,7 @@
 #include <chrono>
 
 #define RUNTIME_MAIN 0
+#define VERBOSE_T 0
 
 using namespace emp;
 using namespace std;
