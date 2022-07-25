@@ -36,7 +36,7 @@ def debug_ss_cacnt():
 def get_unsync_data():
     ss1 = load_data('./data/cache_0')
     ss2 = load_data('./data/cache_1')
-    return (len(np.add(ss1, ss2)))
+    return (np.count_nonzero(np.add(ss1, ss2)))
 
 def get_view_sz():
     ss1 = load_data('./data/view_0')
@@ -133,6 +133,19 @@ def cache_flush(sz):
     update_data(c0_fn, css_0)
     update_data(c1_fn, css_1)
     
+def cache_resize(shift=1500):
+    c0_fn = os.path.abspath('./data/cache_0')
+    c1_fn = os.path.abspath('./data/cache_1')
+    
+    css_0 = load_data(c0_fn)
+    css_1 = load_data(c1_fn)
+    
+    css_0 = css_0[0:0-shift]
+    css_1 = css_1[0:0-shift]
+    
+    update_data(c0_fn, css_0)
+    update_data(c1_fn, css_1)
+    
 
 '''
     Main operations
@@ -152,6 +165,7 @@ def timer(db, T=3, blk_sz=10, eps=1):
             cache_flush(20)
             
             
+            
 def ant(db, Th=500, blk_sz=10, eps=1):
     data = load_data(db)
     pdata = partition_data(data, blk_sz=blk_sz)
@@ -167,6 +181,7 @@ def ant(db, Th=500, blk_sz=10, eps=1):
         
         if ((i+1) % 10) == 0:
             cache_flush(20)
+        
             
     
 def debug_merge_join_1(left, right):
@@ -221,9 +236,9 @@ def debug_merge_join_n(left, right, bound):
 db = './data/sample_db/sample.txt'
 left = [8,5,6,4,3,1, 19, 33, 45, 19, 37, 31, 46, 99, 101, 73]
 right = [6,7,8, 19, 19, 11, 73, 73, 73, 73, 73, 99, 101, 101]
-res = debug_merge_join_n(left, right, 8)
+#res = debug_merge_join_n(left, right, 8)
 #print(res)
-#data = load_data(db)
+data = load_data(db)
 #timer(db, blk_sz=10, T=2)
 reset_objects()
 

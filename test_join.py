@@ -18,6 +18,7 @@ import collections
 import os
 
 class TestFilter(unittest.TestCase):
+    '''
     def test_sort_merge_join_1(self):
         left = set([random.randint(1,200) for elem in range(200)])
         right = set([random.randint(1,200) for elem in range(100)])
@@ -29,19 +30,22 @@ class TestFilter(unittest.TestCase):
         right = set([random.randint(1,200000) for elem in range(200000)])
         res = dsp.debug_merge_join_1(list(left), list(right))
         self.assertEqual(left.intersection(right) - set(res), set([]))
+    '''
         
     def test_timer(self):
         c_sz = []
         v_sz = []
-        for i in range(25):
+        for i in range(2):
             c_sz.append(dsp.get_unsync_data())
             v_sz.append(dsp.get_view_sz())
             cmd_trans = './bin/test_anduin 1 1234 & ./bin/test_anduin 2 1234'
             os.system(cmd_trans)
+            dsp.cache_resize()
             if ((i+1) % 5) == 0:
                 cmd_shrink = './bin/test_thor 1 1234 & ./bin/test_thor 2 1234'
                 os.system(cmd_shrink)  
                 dsp.cache_flush(20)
+            
                 
         view = dsp.debug_ss_view()
         cache = dsp.debug_ss_cache()
@@ -58,9 +62,7 @@ class TestFilter(unittest.TestCase):
         print(("|Values|" + "\t" + str(np.mean(c_sz)) + "\t" + str(np.std(c_sz)) ).expandtabs(20))
         print(("|Perf|" + "\t" + "|Mean View sz|" + "\t" + "|Max View sz|").expandtabs(20))
         print(("|Values|" + "\t" + str(np.mean(v_sz)) + "\t" + str(v_sz[-1])).expandtabs(20))
-        dsp.reset_objects()
-
-        
+        #dsp.reset_objects()
         
         
 if __name__ == '__main__':
