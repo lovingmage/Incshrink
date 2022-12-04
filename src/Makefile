@@ -57,10 +57,10 @@ RM = /usr/local/Cellar/cmake/3.21.4/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc
+CMAKE_SOURCE_DIR = /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc
+CMAKE_BINARY_DIR = /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -142,14 +142,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(CMAKE_COMMAND) -E cmake_progress_start /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc/CMakeFiles /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc/test//CMakeFiles/progress.marks
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc/CMakeFiles 0
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(CMAKE_COMMAND) -E cmake_progress_start /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink/CMakeFiles /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink/src//CMakeFiles/progress.marks
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/clean
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/clean
 .PHONY : clean
 
 # The main clean target
@@ -158,157 +158,157 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/preinstall
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/preinstall
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
-test/CMakeFiles/test_anduin.dir/rule:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test_anduin.dir/rule
-.PHONY : test/CMakeFiles/test_anduin.dir/rule
+src/CMakeFiles/test_anduin.dir/rule:
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/test_anduin.dir/rule
+.PHONY : src/CMakeFiles/test_anduin.dir/rule
 
 # Convenience name for target.
-test_anduin: test/CMakeFiles/test_anduin.dir/rule
+test_anduin: src/CMakeFiles/test_anduin.dir/rule
 .PHONY : test_anduin
 
 # fast build rule for target.
 test_anduin/fast:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_anduin.dir/build.make test/CMakeFiles/test_anduin.dir/build
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/test_anduin.dir/build.make src/CMakeFiles/test_anduin.dir/build
 .PHONY : test_anduin/fast
 
 # Convenience name for target.
-test/CMakeFiles/test_gen_noise.dir/rule:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test_gen_noise.dir/rule
-.PHONY : test/CMakeFiles/test_gen_noise.dir/rule
+src/CMakeFiles/test_gen_noise.dir/rule:
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/test_gen_noise.dir/rule
+.PHONY : src/CMakeFiles/test_gen_noise.dir/rule
 
 # Convenience name for target.
-test_gen_noise: test/CMakeFiles/test_gen_noise.dir/rule
+test_gen_noise: src/CMakeFiles/test_gen_noise.dir/rule
 .PHONY : test_gen_noise
 
 # fast build rule for target.
 test_gen_noise/fast:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_gen_noise.dir/build.make test/CMakeFiles/test_gen_noise.dir/build
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/test_gen_noise.dir/build.make src/CMakeFiles/test_gen_noise.dir/build
 .PHONY : test_gen_noise/fast
 
 # Convenience name for target.
-test/CMakeFiles/test_example.dir/rule:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test_example.dir/rule
-.PHONY : test/CMakeFiles/test_example.dir/rule
+src/CMakeFiles/test_example.dir/rule:
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/test_example.dir/rule
+.PHONY : src/CMakeFiles/test_example.dir/rule
 
 # Convenience name for target.
-test_example: test/CMakeFiles/test_example.dir/rule
+test_example: src/CMakeFiles/test_example.dir/rule
 .PHONY : test_example
 
 # fast build rule for target.
 test_example/fast:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_example.dir/build.make test/CMakeFiles/test_example.dir/build
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/test_example.dir/build.make src/CMakeFiles/test_example.dir/build
 .PHONY : test_example/fast
 
 # Convenience name for target.
-test/CMakeFiles/test_sylvanas.dir/rule:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test_sylvanas.dir/rule
-.PHONY : test/CMakeFiles/test_sylvanas.dir/rule
+src/CMakeFiles/test_sylvanas.dir/rule:
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/test_sylvanas.dir/rule
+.PHONY : src/CMakeFiles/test_sylvanas.dir/rule
 
 # Convenience name for target.
-test_sylvanas: test/CMakeFiles/test_sylvanas.dir/rule
+test_sylvanas: src/CMakeFiles/test_sylvanas.dir/rule
 .PHONY : test_sylvanas
 
 # fast build rule for target.
 test_sylvanas/fast:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_sylvanas.dir/build.make test/CMakeFiles/test_sylvanas.dir/build
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/test_sylvanas.dir/build.make src/CMakeFiles/test_sylvanas.dir/build
 .PHONY : test_sylvanas/fast
 
 # Convenience name for target.
-test/CMakeFiles/test_hermes.dir/rule:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test_hermes.dir/rule
-.PHONY : test/CMakeFiles/test_hermes.dir/rule
+src/CMakeFiles/test_hermes.dir/rule:
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/test_hermes.dir/rule
+.PHONY : src/CMakeFiles/test_hermes.dir/rule
 
 # Convenience name for target.
-test_hermes: test/CMakeFiles/test_hermes.dir/rule
+test_hermes: src/CMakeFiles/test_hermes.dir/rule
 .PHONY : test_hermes
 
 # fast build rule for target.
 test_hermes/fast:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_hermes.dir/build.make test/CMakeFiles/test_hermes.dir/build
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/test_hermes.dir/build.make src/CMakeFiles/test_hermes.dir/build
 .PHONY : test_hermes/fast
 
 # Convenience name for target.
-test/CMakeFiles/test_repeat.dir/rule:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test_repeat.dir/rule
-.PHONY : test/CMakeFiles/test_repeat.dir/rule
+src/CMakeFiles/test_repeat.dir/rule:
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/test_repeat.dir/rule
+.PHONY : src/CMakeFiles/test_repeat.dir/rule
 
 # Convenience name for target.
-test_repeat: test/CMakeFiles/test_repeat.dir/rule
+test_repeat: src/CMakeFiles/test_repeat.dir/rule
 .PHONY : test_repeat
 
 # fast build rule for target.
 test_repeat/fast:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_repeat.dir/build.make test/CMakeFiles/test_repeat.dir/build
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/test_repeat.dir/build.make src/CMakeFiles/test_repeat.dir/build
 .PHONY : test_repeat/fast
 
 # Convenience name for target.
-test/CMakeFiles/test_int.dir/rule:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test_int.dir/rule
-.PHONY : test/CMakeFiles/test_int.dir/rule
+src/CMakeFiles/test_int.dir/rule:
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/test_int.dir/rule
+.PHONY : src/CMakeFiles/test_int.dir/rule
 
 # Convenience name for target.
-test_int: test/CMakeFiles/test_int.dir/rule
+test_int: src/CMakeFiles/test_int.dir/rule
 .PHONY : test_int
 
 # fast build rule for target.
 test_int/fast:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_int.dir/build.make test/CMakeFiles/test_int.dir/build
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/test_int.dir/build.make src/CMakeFiles/test_int.dir/build
 .PHONY : test_int/fast
 
 # Convenience name for target.
-test/CMakeFiles/test_bit.dir/rule:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test_bit.dir/rule
-.PHONY : test/CMakeFiles/test_bit.dir/rule
+src/CMakeFiles/test_bit.dir/rule:
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/test_bit.dir/rule
+.PHONY : src/CMakeFiles/test_bit.dir/rule
 
 # Convenience name for target.
-test_bit: test/CMakeFiles/test_bit.dir/rule
+test_bit: src/CMakeFiles/test_bit.dir/rule
 .PHONY : test_bit
 
 # fast build rule for target.
 test_bit/fast:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_bit.dir/build.make test/CMakeFiles/test_bit.dir/build
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/test_bit.dir/build.make src/CMakeFiles/test_bit.dir/build
 .PHONY : test_bit/fast
 
 # Convenience name for target.
-test/CMakeFiles/test_circuit_file.dir/rule:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test_circuit_file.dir/rule
-.PHONY : test/CMakeFiles/test_circuit_file.dir/rule
+src/CMakeFiles/test_circuit_file.dir/rule:
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/test_circuit_file.dir/rule
+.PHONY : src/CMakeFiles/test_circuit_file.dir/rule
 
 # Convenience name for target.
-test_circuit_file: test/CMakeFiles/test_circuit_file.dir/rule
+test_circuit_file: src/CMakeFiles/test_circuit_file.dir/rule
 .PHONY : test_circuit_file
 
 # fast build rule for target.
 test_circuit_file/fast:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_circuit_file.dir/build.make test/CMakeFiles/test_circuit_file.dir/build
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/test_circuit_file.dir/build.make src/CMakeFiles/test_circuit_file.dir/build
 .PHONY : test_circuit_file/fast
 
 # Convenience name for target.
-test/CMakeFiles/test_thor.dir/rule:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test_thor.dir/rule
-.PHONY : test/CMakeFiles/test_thor.dir/rule
+src/CMakeFiles/test_thor.dir/rule:
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/test_thor.dir/rule
+.PHONY : src/CMakeFiles/test_thor.dir/rule
 
 # Convenience name for target.
-test_thor: test/CMakeFiles/test_thor.dir/rule
+test_thor: src/CMakeFiles/test_thor.dir/rule
 .PHONY : test_thor
 
 # fast build rule for target.
 test_thor/fast:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_thor.dir/build.make test/CMakeFiles/test_thor.dir/build
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/test_thor.dir/build.make src/CMakeFiles/test_thor.dir/build
 .PHONY : test_thor/fast
 
 anduin.o: anduin.cpp.o
@@ -316,7 +316,7 @@ anduin.o: anduin.cpp.o
 
 # target to build an object file
 anduin.cpp.o:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_anduin.dir/build.make test/CMakeFiles/test_anduin.dir/anduin.cpp.o
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/test_anduin.dir/build.make src/CMakeFiles/test_anduin.dir/anduin.cpp.o
 .PHONY : anduin.cpp.o
 
 anduin.i: anduin.cpp.i
@@ -324,7 +324,7 @@ anduin.i: anduin.cpp.i
 
 # target to preprocess a source file
 anduin.cpp.i:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_anduin.dir/build.make test/CMakeFiles/test_anduin.dir/anduin.cpp.i
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/test_anduin.dir/build.make src/CMakeFiles/test_anduin.dir/anduin.cpp.i
 .PHONY : anduin.cpp.i
 
 anduin.s: anduin.cpp.s
@@ -332,7 +332,7 @@ anduin.s: anduin.cpp.s
 
 # target to generate assembly for a file
 anduin.cpp.s:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_anduin.dir/build.make test/CMakeFiles/test_anduin.dir/anduin.cpp.s
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/test_anduin.dir/build.make src/CMakeFiles/test_anduin.dir/anduin.cpp.s
 .PHONY : anduin.cpp.s
 
 bit.o: bit.cpp.o
@@ -340,7 +340,7 @@ bit.o: bit.cpp.o
 
 # target to build an object file
 bit.cpp.o:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_bit.dir/build.make test/CMakeFiles/test_bit.dir/bit.cpp.o
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/test_bit.dir/build.make src/CMakeFiles/test_bit.dir/bit.cpp.o
 .PHONY : bit.cpp.o
 
 bit.i: bit.cpp.i
@@ -348,7 +348,7 @@ bit.i: bit.cpp.i
 
 # target to preprocess a source file
 bit.cpp.i:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_bit.dir/build.make test/CMakeFiles/test_bit.dir/bit.cpp.i
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/test_bit.dir/build.make src/CMakeFiles/test_bit.dir/bit.cpp.i
 .PHONY : bit.cpp.i
 
 bit.s: bit.cpp.s
@@ -356,7 +356,7 @@ bit.s: bit.cpp.s
 
 # target to generate assembly for a file
 bit.cpp.s:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_bit.dir/build.make test/CMakeFiles/test_bit.dir/bit.cpp.s
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/test_bit.dir/build.make src/CMakeFiles/test_bit.dir/bit.cpp.s
 .PHONY : bit.cpp.s
 
 circuit_file.o: circuit_file.cpp.o
@@ -364,7 +364,7 @@ circuit_file.o: circuit_file.cpp.o
 
 # target to build an object file
 circuit_file.cpp.o:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_circuit_file.dir/build.make test/CMakeFiles/test_circuit_file.dir/circuit_file.cpp.o
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/test_circuit_file.dir/build.make src/CMakeFiles/test_circuit_file.dir/circuit_file.cpp.o
 .PHONY : circuit_file.cpp.o
 
 circuit_file.i: circuit_file.cpp.i
@@ -372,7 +372,7 @@ circuit_file.i: circuit_file.cpp.i
 
 # target to preprocess a source file
 circuit_file.cpp.i:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_circuit_file.dir/build.make test/CMakeFiles/test_circuit_file.dir/circuit_file.cpp.i
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/test_circuit_file.dir/build.make src/CMakeFiles/test_circuit_file.dir/circuit_file.cpp.i
 .PHONY : circuit_file.cpp.i
 
 circuit_file.s: circuit_file.cpp.s
@@ -380,7 +380,7 @@ circuit_file.s: circuit_file.cpp.s
 
 # target to generate assembly for a file
 circuit_file.cpp.s:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_circuit_file.dir/build.make test/CMakeFiles/test_circuit_file.dir/circuit_file.cpp.s
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/test_circuit_file.dir/build.make src/CMakeFiles/test_circuit_file.dir/circuit_file.cpp.s
 .PHONY : circuit_file.cpp.s
 
 example.o: example.cpp.o
@@ -388,7 +388,7 @@ example.o: example.cpp.o
 
 # target to build an object file
 example.cpp.o:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_example.dir/build.make test/CMakeFiles/test_example.dir/example.cpp.o
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/test_example.dir/build.make src/CMakeFiles/test_example.dir/example.cpp.o
 .PHONY : example.cpp.o
 
 example.i: example.cpp.i
@@ -396,7 +396,7 @@ example.i: example.cpp.i
 
 # target to preprocess a source file
 example.cpp.i:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_example.dir/build.make test/CMakeFiles/test_example.dir/example.cpp.i
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/test_example.dir/build.make src/CMakeFiles/test_example.dir/example.cpp.i
 .PHONY : example.cpp.i
 
 example.s: example.cpp.s
@@ -404,7 +404,7 @@ example.s: example.cpp.s
 
 # target to generate assembly for a file
 example.cpp.s:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_example.dir/build.make test/CMakeFiles/test_example.dir/example.cpp.s
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/test_example.dir/build.make src/CMakeFiles/test_example.dir/example.cpp.s
 .PHONY : example.cpp.s
 
 gen_noise.o: gen_noise.cpp.o
@@ -412,7 +412,7 @@ gen_noise.o: gen_noise.cpp.o
 
 # target to build an object file
 gen_noise.cpp.o:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_gen_noise.dir/build.make test/CMakeFiles/test_gen_noise.dir/gen_noise.cpp.o
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/test_gen_noise.dir/build.make src/CMakeFiles/test_gen_noise.dir/gen_noise.cpp.o
 .PHONY : gen_noise.cpp.o
 
 gen_noise.i: gen_noise.cpp.i
@@ -420,7 +420,7 @@ gen_noise.i: gen_noise.cpp.i
 
 # target to preprocess a source file
 gen_noise.cpp.i:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_gen_noise.dir/build.make test/CMakeFiles/test_gen_noise.dir/gen_noise.cpp.i
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/test_gen_noise.dir/build.make src/CMakeFiles/test_gen_noise.dir/gen_noise.cpp.i
 .PHONY : gen_noise.cpp.i
 
 gen_noise.s: gen_noise.cpp.s
@@ -428,7 +428,7 @@ gen_noise.s: gen_noise.cpp.s
 
 # target to generate assembly for a file
 gen_noise.cpp.s:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_gen_noise.dir/build.make test/CMakeFiles/test_gen_noise.dir/gen_noise.cpp.s
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/test_gen_noise.dir/build.make src/CMakeFiles/test_gen_noise.dir/gen_noise.cpp.s
 .PHONY : gen_noise.cpp.s
 
 hermes.o: hermes.cpp.o
@@ -436,7 +436,7 @@ hermes.o: hermes.cpp.o
 
 # target to build an object file
 hermes.cpp.o:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_hermes.dir/build.make test/CMakeFiles/test_hermes.dir/hermes.cpp.o
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/test_hermes.dir/build.make src/CMakeFiles/test_hermes.dir/hermes.cpp.o
 .PHONY : hermes.cpp.o
 
 hermes.i: hermes.cpp.i
@@ -444,7 +444,7 @@ hermes.i: hermes.cpp.i
 
 # target to preprocess a source file
 hermes.cpp.i:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_hermes.dir/build.make test/CMakeFiles/test_hermes.dir/hermes.cpp.i
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/test_hermes.dir/build.make src/CMakeFiles/test_hermes.dir/hermes.cpp.i
 .PHONY : hermes.cpp.i
 
 hermes.s: hermes.cpp.s
@@ -452,7 +452,7 @@ hermes.s: hermes.cpp.s
 
 # target to generate assembly for a file
 hermes.cpp.s:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_hermes.dir/build.make test/CMakeFiles/test_hermes.dir/hermes.cpp.s
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/test_hermes.dir/build.make src/CMakeFiles/test_hermes.dir/hermes.cpp.s
 .PHONY : hermes.cpp.s
 
 int.o: int.cpp.o
@@ -460,7 +460,7 @@ int.o: int.cpp.o
 
 # target to build an object file
 int.cpp.o:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_int.dir/build.make test/CMakeFiles/test_int.dir/int.cpp.o
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/test_int.dir/build.make src/CMakeFiles/test_int.dir/int.cpp.o
 .PHONY : int.cpp.o
 
 int.i: int.cpp.i
@@ -468,7 +468,7 @@ int.i: int.cpp.i
 
 # target to preprocess a source file
 int.cpp.i:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_int.dir/build.make test/CMakeFiles/test_int.dir/int.cpp.i
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/test_int.dir/build.make src/CMakeFiles/test_int.dir/int.cpp.i
 .PHONY : int.cpp.i
 
 int.s: int.cpp.s
@@ -476,7 +476,7 @@ int.s: int.cpp.s
 
 # target to generate assembly for a file
 int.cpp.s:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_int.dir/build.make test/CMakeFiles/test_int.dir/int.cpp.s
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/test_int.dir/build.make src/CMakeFiles/test_int.dir/int.cpp.s
 .PHONY : int.cpp.s
 
 repeat.o: repeat.cpp.o
@@ -484,7 +484,7 @@ repeat.o: repeat.cpp.o
 
 # target to build an object file
 repeat.cpp.o:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_repeat.dir/build.make test/CMakeFiles/test_repeat.dir/repeat.cpp.o
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/test_repeat.dir/build.make src/CMakeFiles/test_repeat.dir/repeat.cpp.o
 .PHONY : repeat.cpp.o
 
 repeat.i: repeat.cpp.i
@@ -492,7 +492,7 @@ repeat.i: repeat.cpp.i
 
 # target to preprocess a source file
 repeat.cpp.i:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_repeat.dir/build.make test/CMakeFiles/test_repeat.dir/repeat.cpp.i
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/test_repeat.dir/build.make src/CMakeFiles/test_repeat.dir/repeat.cpp.i
 .PHONY : repeat.cpp.i
 
 repeat.s: repeat.cpp.s
@@ -500,7 +500,7 @@ repeat.s: repeat.cpp.s
 
 # target to generate assembly for a file
 repeat.cpp.s:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_repeat.dir/build.make test/CMakeFiles/test_repeat.dir/repeat.cpp.s
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/test_repeat.dir/build.make src/CMakeFiles/test_repeat.dir/repeat.cpp.s
 .PHONY : repeat.cpp.s
 
 sylvanas.o: sylvanas.cpp.o
@@ -508,7 +508,7 @@ sylvanas.o: sylvanas.cpp.o
 
 # target to build an object file
 sylvanas.cpp.o:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_sylvanas.dir/build.make test/CMakeFiles/test_sylvanas.dir/sylvanas.cpp.o
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/test_sylvanas.dir/build.make src/CMakeFiles/test_sylvanas.dir/sylvanas.cpp.o
 .PHONY : sylvanas.cpp.o
 
 sylvanas.i: sylvanas.cpp.i
@@ -516,7 +516,7 @@ sylvanas.i: sylvanas.cpp.i
 
 # target to preprocess a source file
 sylvanas.cpp.i:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_sylvanas.dir/build.make test/CMakeFiles/test_sylvanas.dir/sylvanas.cpp.i
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/test_sylvanas.dir/build.make src/CMakeFiles/test_sylvanas.dir/sylvanas.cpp.i
 .PHONY : sylvanas.cpp.i
 
 sylvanas.s: sylvanas.cpp.s
@@ -524,7 +524,7 @@ sylvanas.s: sylvanas.cpp.s
 
 # target to generate assembly for a file
 sylvanas.cpp.s:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_sylvanas.dir/build.make test/CMakeFiles/test_sylvanas.dir/sylvanas.cpp.s
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/test_sylvanas.dir/build.make src/CMakeFiles/test_sylvanas.dir/sylvanas.cpp.s
 .PHONY : sylvanas.cpp.s
 
 thor.o: thor.cpp.o
@@ -532,7 +532,7 @@ thor.o: thor.cpp.o
 
 # target to build an object file
 thor.cpp.o:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_thor.dir/build.make test/CMakeFiles/test_thor.dir/thor.cpp.o
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/test_thor.dir/build.make src/CMakeFiles/test_thor.dir/thor.cpp.o
 .PHONY : thor.cpp.o
 
 thor.i: thor.cpp.i
@@ -540,7 +540,7 @@ thor.i: thor.cpp.i
 
 # target to preprocess a source file
 thor.cpp.i:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_thor.dir/build.make test/CMakeFiles/test_thor.dir/thor.cpp.i
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/test_thor.dir/build.make src/CMakeFiles/test_thor.dir/thor.cpp.i
 .PHONY : thor.cpp.i
 
 thor.s: thor.cpp.s
@@ -548,7 +548,7 @@ thor.s: thor.cpp.s
 
 # target to generate assembly for a file
 thor.cpp.s:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_thor.dir/build.make test/CMakeFiles/test_thor.dir/thor.cpp.s
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/test_thor.dir/build.make src/CMakeFiles/test_thor.dir/thor.cpp.s
 .PHONY : thor.cpp.s
 
 # Help Target
@@ -615,6 +615,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /Users/lovingmage/Desktop/dev-pool/incshrink/incshrink && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 
