@@ -9,6 +9,8 @@ Created on March 16 12:02:48 2021
 import os
 import numpy as np
 import time
+import collections
+
 
 '''
     Quick debug
@@ -146,23 +148,42 @@ def cache_resize(shift=1500):
     update_data(c0_fn, css_0)
     update_data(c1_fn, css_1)
     
-
+def get_valid_tuples(in_list):
+    dtuple = [elem for elem in in_list if elem > 0]
+    return dtuple
+    
+        
+    
+    
+    
 '''
     Main operations
 '''
 def timer(db, T=3, blk_sz=10, eps=1):
     data = load_data(db)
     pdata = partition_data(data, blk_sz=blk_sz)
+    query_error = []
+    deferred_tuple = []
     
     for i in range(len(pdata)):
         print("[+] Current Timestamp => " + str(i))
         insert(pdata[i])
         cmd_trans = './bin/test_hermes 1 1234 & ./bin/test_hermes 2 1234'
+        cache = list(debug_ss_cache())
+        query_error.append(len([elem for elem in get_valid_tuples(cache) if elem >5]))
+        
         os.system(cmd_trans)
         if ((i+1) % T) == 0:
             cmd_shrink = './bin/test_thor 1 1234 & ./bin/test_thor 2 1234'
             os.system(cmd_shrink)  
-            cache_flush(20)
+            cache = list(debug_ss_cache())
+            deferred_tuple.append(len(get_valid_tuples(cache)))
+
+            
+            
+    print (query_error)
+    print (deferred_tuple)
+        #cache_flush(20)
             
             
             
