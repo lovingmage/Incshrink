@@ -1,5 +1,4 @@
 #include "emp-sh2pc/emp-sh2pc.h"
-#include <utils/row.h>
 #include <utils/io.h>
 #include <utils/oblisort.h>
 #include <utils/memory.h>

@@ -1,7 +1,7 @@
 #include "emp-sh2pc/emp-sh2pc.h"
-#include <utils/row.h>
 #include <utils/io.h>
 #include <utils/oblisort.h>
+#include <utils/gen_noise.h>
 #include <utils/memory.h>
 #include <utils/operator.h>
 #include <utils/params.h>
@@ -19,9 +19,12 @@ using std::chrono::milliseconds;
 
 void synchron(Data *in, Integer prevcnt, int party){
 	// use joint noise adding, this fixed noise is used for debug only
-	int noise = -2;
+	float eps = 1.0;
+	int sens = 1;
 	Integer noisy_cnt(32, 0, PUBLIC);
-	Integer z(32, noise);
+	Integer z(32, 0);
+	z = sprg_laplace_noise(party, 0, eps, sens);
+	cout << z.reveal<int>() <<endl;
 	Integer zero(32, 0);
 	noisy_cnt = prevcnt + z;
 	

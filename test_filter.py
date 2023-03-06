@@ -37,8 +37,9 @@ class TestFilter(unittest.TestCase):
         print("\n")
         
         #print(collections.Counter(np.array(cache)))
-        dsp.reset_objects()
+        #dsp.reset_objects()
         
+    
     def test_filter_ant(self):
         db = './data/sample_db/sample.txt'
         data = dsp.load_data(db)
@@ -60,6 +61,7 @@ class TestFilter(unittest.TestCase):
         
         #print(collections.Counter(np.array(cache)))
         dsp.reset_objects()
+    
     
     '''
     def test_filter_large(self):

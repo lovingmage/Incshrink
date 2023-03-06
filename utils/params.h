@@ -5,9 +5,9 @@
 #define RANDOM_SS -10
 #define DEBUG_NOISY_TH 100
 
-string obj_path = "/Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc/data/";
+string obj_path = "/Users/lovingmage/Desktop/dev-pool/incshrink/incshrink/data/";
 // Configurations
-string full_path = "/Users/lovingmage/Desktop/dev-pool/incshrink/emp-sh2pc/data/";
+string full_path = "/Users/lovingmage/Desktop/dev-pool/incshrink/incshrink/data/";
 
 // Define Data Structure
 class Data {public:
