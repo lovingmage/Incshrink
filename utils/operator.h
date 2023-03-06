@@ -8,7 +8,7 @@
 #include <chrono>
 
 #define RUNTIME_MAIN 0
-#define VERBOSE_T 0
+//#define VERBOSE_T 0
 
 using namespace emp;
 using namespace std;
@@ -100,7 +100,7 @@ void op_csort(Integer *cache, uint32_t N, uint32_t rsz, Bit dir)
 	auto t1 = high_resolution_clock::now();
 #endif	
 
-    cache_bitonic_sort(arr, cache, 0, rsz, N/rsz, dir);
+    //bitonic_sort(arr, cache, 0, rsz, N/rsz, dir);
 
 #ifdef VERBOSE_T
 	auto t2 = high_resolution_clock::now();

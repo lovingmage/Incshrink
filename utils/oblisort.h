@@ -1,6 +1,7 @@
 #ifndef OBLISORT_H__
 #define OBLISORT_H__
 
+#include "data.h"
 using namespace emp;
 using namespace std;
 
@@ -24,15 +25,15 @@ void arr_bitonic_sort(Integer *arr, uint32_t lo, uint32_t n, Bit dir);
    or DESCENDING; if (arr[i] > arr[j]) agrees with the direction,
    then arr[i] and arr[j] (sorting array) are interchanged. 
    The cache will also be swaped accordingly*/
-void cache_cmp_swap(Integer *arr, Integer *cache, uint32_t i, uint32_t j, uint32_t rsz, Bit dir);
+void swap_data(struct data *a, struct data *b, Bit to_swap);
 
 /*This function call is same as the arr_bitonic_merge, but it will
   passes *cache and block size rsz to the cache_cmp_swap function .*/
-void cache_bitonic_merge(Integer *arr, Integer *cache, uint32_t lo, uint32_t rsz, uint32_t n, Bit dir);
+void bitonic_merge(struct data array[], int left, int right, bool ascending);
 
 /*This function call is same as the arr_bitonic_merge, but it will
   passes *cache and block size rsz to the cache_bitonic_merge function .*/
-void cache_bitonic_sort(Integer *arr, Integer *cache, uint32_t lo, uint32_t rsz, uint32_t n, Bit dir);
+void bitonic_sort(struct data array[], int left, int right, bool ascending);
 
 #include "oblisort.hpp"
 
